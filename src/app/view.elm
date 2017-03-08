@@ -1,7 +1,7 @@
 module App.View exposing (..)
 
 import App.Chart.View exposing (chart)
-import Html exposing (Html, div, h1, text)
+import Html exposing (Html, div, h1, text, a)
 import Html.Attributes exposing (style)
 import App.Shared exposing (Model, Msg)
 
@@ -37,6 +37,47 @@ title label =
   h1 [ style titleStyle ]
     [ text label ]
 
+-- Voting Buttons
+
+voteButtonsStyle : List (String, String)
+voteButtonsStyle =
+  [ ("display", "flex")
+  , ("flex-direction", "row")
+  , ("justify-content", "space-around")
+  , ("align-items", "center")
+  , ("margin-top", "5rem")
+  ]
+
+voteButtonStyle : List (String, String)
+voteButtonStyle =
+  [ ("display", "block")
+  , ("cursor", "pointer")
+  , ("border-radius", "50%")
+  , ("width", "3rem")
+  , ("height", "3rem")
+  , ("background", "#FFBD24")
+  , ("box-shadow", "0 0 0 0.6rem rgba(255, 189, 36, 0.3)")
+  , ("font-size", "1.5rem")
+  , ("text-align", "center")
+  , ("line-height", "3rem")
+  , ("vertical-align", "middle")
+  , ("user-select", "none")
+  ]
+
+voteButton : Html Msg
+voteButton =
+  a [ style voteButtonStyle ]
+    [ text "+1" ]
+
+voteButtons : Html Msg
+voteButtons =
+  div [ style voteButtonsStyle ]
+    [ voteButton
+    , voteButton
+    , voteButton
+    , voteButton
+    ]
+
 -- Main View
 
 view : Model -> Html Msg
@@ -44,5 +85,6 @@ view model =
   container
     [ title "Loading..."
     , chart (450, 300)
+    , voteButtons
     ]
 
