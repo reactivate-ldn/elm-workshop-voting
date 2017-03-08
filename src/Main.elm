@@ -4,12 +4,11 @@ import App.Shared exposing (Model, initialModel, Msg, update)
 import App.View exposing (view)
 import App.Subscriptions exposing (subscriptions)
 
-import Html exposing (programWithFlags)
+import Html exposing (program)
 
-init : String -> ( Model, Cmd Msg )
-init path =
-  ( initialModel, Cmd.none )
+init : ( Model, Cmd Msg )
+init = ( initialModel, Cmd.none )
 
-main : Program String Model Msg
+main : Program Never Model Msg
 main =
-    programWithFlags { view = view, init = init, update = update, subscriptions = subscriptions }
+    program { view = view, init = init, update = update, subscriptions = subscriptions }
