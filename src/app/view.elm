@@ -13,7 +13,7 @@ containerStyle =
   , ("max-width", "100%")
   , ("width", "1000px")
   , ("height", "100%")
-  , ("padding", "3rem")
+  , ("padding", "3rem 1rem 2rem")
   , ("display", "flex")
   , ("flex-direction", "column")
   , ("align-items", "stretch")
@@ -30,6 +30,8 @@ titleStyle =
   [ ("font-size", "3.7rem")
   , ("font-weight", "bold")
   , ("text-align", "center")
+  , ("margin", "0")
+  , ("margin-bottom", "2rem")
   ]
 
 title : String -> Html Msg
