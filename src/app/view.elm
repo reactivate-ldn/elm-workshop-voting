@@ -3,7 +3,7 @@ module App.View exposing (..)
 import Html exposing (Html, div, h1, text)
 import Html.Attributes exposing (style)
 import Svg exposing (Svg, svg, g, rect)
-import Svg.Attributes exposing (height, width, viewBox, x, y, fill)
+import Svg.Attributes exposing (height, width, viewBox, x, y, fill, fontSize, textAnchor, color)
 import App.Shared exposing (Model, Msg)
 import List exposing (map, indexedMap, length, maximum)
 import Maybe exposing (withDefault)
@@ -42,6 +42,9 @@ title label =
 
 -- Chart
 
+barWidth : Int
+barWidth = 8
+
 chartStyle : List (String, String)
 chartStyle =
   [ ("height", "auto")
@@ -50,13 +53,22 @@ chartStyle =
 
 bar : (Int, Int) -> (String, Int, Float) -> Svg Msg
 bar (xSize, ySize) (label, xPos, yHeight) =
-  rect
-    [ width "8"
-    , height (toString yHeight)
-    , x (toString xPos)
-    , y (toString (toFloat ySize - yHeight))
-    , fill "#FFBD24"
-    ] []
+  g []
+    [ rect
+      [ width (toString barWidth)
+      , height (toString yHeight)
+      , x (toString (xPos - barWidth // 2))
+      , y (toString (toFloat ySize - yHeight))
+      , fill "#FFBD24"
+      ] []
+    , Svg.text_
+      [ x (toString xPos)
+      , y (toString (toFloat ySize - yHeight - toFloat 7))
+      , fontSize "13"
+      , color "rgba(255, 255, 255, 0.85)"
+      , textAnchor "middle"
+      ] [ Svg.text label ]
+    ]
 
 bars : List (String, Int)
 bars =
@@ -67,10 +79,11 @@ bars =
   ]
 
 calcBarDimensions : (Int, Int) -> (Int, Int) -> Int -> (String, Int) -> (String, Int, Float)
-calcBarDimensions (xSize, ySize) (barsLength, maxVotes) index (name, votes) =
+calcBarDimensions (xSize, ySizeInt) (barsLength, maxVotes) index (name, votes) =
   let
-    xPos = (xSize // barsLength) * index + (xSize // barsLength) // 2 - 4
-    yHeight = min 300 (toFloat votes / toFloat maxVotes * 300)
+    ySize = toFloat ySizeInt
+    xPos = (xSize // barsLength) * index + (xSize // barsLength) // 2
+    yHeight = min ySize (toFloat votes / toFloat maxVotes * ySize)
   in
     (name, xPos, yHeight)
 
@@ -86,7 +99,8 @@ chart : (Int, Int) -> Html Msg
 chart dimensions =
   let
     (xSize, ySize) = dimensions
-    barsDimensions = calcBarsDimensions dimensions bars
+    paddedDimensions = (xSize, ySize - 20)
+    barsDimensions = calcBarsDimensions paddedDimensions bars
   in
     svg
       [ height (toString ySize)
@@ -106,3 +120,4 @@ view model =
     [ title "Loading..."
     , chart (450, 300)
     ]
+
