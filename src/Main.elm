@@ -1,14 +1,17 @@
 module Main exposing (main)
 
-import App.Shared exposing (Model, initialModel, Msg, update)
+import App.Shared exposing (Model, initialModel, Msg, update, subscriptions)
 import App.View exposing (view)
-import App.Subscriptions exposing (subscriptions)
 
-import Html exposing (program)
+import Html exposing (..)
 
 init : ( Model, Cmd Msg )
 init = ( initialModel, Cmd.none )
 
-main : Program Never Model Msg
 main =
-    program { view = view, init = init, update = update, subscriptions = subscriptions }
+    Html.program
+    { view = view
+    , init = init
+    , update = update
+    , subscriptions = subscriptions
+    }
