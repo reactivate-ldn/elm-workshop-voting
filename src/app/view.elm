@@ -3,9 +3,9 @@ module App.View exposing (..)
 import App.Chart.View exposing (chart)
 import Html exposing (Html, div, h1, text, a)
 import Html.Attributes exposing (style)
-import App.Shared exposing (..)
 import Html.Events exposing (onClick)
-
+import App.Model exposing (..)
+import App.Message exposing (..)
 -- Container
 
 containerStyle : List (String, String)

@@ -1,11 +1,12 @@
 module App.Chart.View exposing (chart)
 
-import App.Shared exposing (..)
 import Svg exposing (Svg, svg, g, rect)
 import Svg.Attributes exposing (height, width, viewBox, x, y, fill, fontSize, textAnchor, color)
 import Html.Attributes exposing (style)
 import List exposing (map, indexedMap, length, maximum)
 import Maybe exposing (withDefault)
+import App.Model exposing (..)
+import App.Message exposing (..)
 
 barWidth : Int
 barWidth = 8
@@ -68,4 +69,3 @@ chart dimensions answers =
       [ g []
         (map (\x -> bar dimensions x) barsDimensions)
       ]
-
