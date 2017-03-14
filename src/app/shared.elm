@@ -1,6 +1,7 @@
 module App.Shared exposing (..)
 
 import WebSocket
+import Http
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (decode, required)
 
@@ -20,11 +21,12 @@ type alias Model = {
   poll: Maybe Poll
 }
 
-initialModel = ({ poll = Nothing }, Cmd.none)
+initialModel = ({ poll = Nothing }, getFirstPoll)
 
 type Msg
   = NoOp
   | GetPoll String
+  | GetHttpPoll (Result Http.Error Poll)
 
 answerDecoder : Decoder Answer
 answerDecoder = 
@@ -49,8 +51,15 @@ update msg model =
           ( { model | poll = Just val }, Cmd.none )
         Err err ->
           ( model, Cmd.none )
+    GetHttpPoll (Ok val) ->
+      ( { model | poll = Just val }, Cmd.none )
+    GetHttpPoll (Err _) ->
+      ( model, Cmd.none )
     NoOp -> ( model, Cmd.none )
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     WebSocket.listen "ws://localhost:8080/socket" GetPoll
+
+getFirstPoll : Cmd Msg
+getFirstPoll = Http.send GetHttpPoll (Http.get "http://localhost:8080/poll?pollId=1234" pollDecoder)

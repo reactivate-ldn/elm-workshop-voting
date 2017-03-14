@@ -3,7 +3,7 @@ module App.View exposing (..)
 import App.Chart.View exposing (chart)
 import Html exposing (Html, div, h1, text, a)
 import Html.Attributes exposing (style)
-import App.Shared exposing (Model, Msg)
+import App.Shared exposing (..)
 
 -- Container
 
@@ -66,32 +66,31 @@ voteButtonStyle =
   , ("user-select", "none")
   ]
 
-voteButton : Html Msg
-voteButton =
+voteButton : Answer -> Html Msg
+voteButton answer =
   a [ style voteButtonStyle ]
     [ text "+1" ]
 
-voteButtons : Html Msg
-voteButtons =
-  div [ style voteButtonsStyle ]
-    [ voteButton
-    , voteButton
-    , voteButton
-    , voteButton
-    ]
+voteButtons : List Answer -> Html Msg
+voteButtons answers =
+  div [ style voteButtonsStyle ] <| List.map voteButton answers
 
 -- Main View
 
 view : Model -> Html Msg
 view model =
   container
-    [ 
+    [
       case model.poll of
         Nothing ->
           title "Loading..."
         Just val ->
           title val.title
     , chart (450, 300)
-    , voteButtons
+    ,
+      case model.poll of
+        Nothing ->
+          div[][]
+        Just val ->
+          voteButtons val.answer
     ]
-
