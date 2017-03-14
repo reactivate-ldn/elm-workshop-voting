@@ -20,7 +20,7 @@ type alias Model = {
   poll: Poll
 }
 
-initialModel = ({ poll = {} }, Cmd.none)
+initialModel = ({ poll = { id = "foo", title = "bar", answer = [ { answer = "asd", id = "asd", votes = 1 }]} }, Cmd.none)
 
 type Msg
   = NoOp
@@ -44,8 +44,11 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
     GetPoll pollStr ->
-      let newPoll = decodeString pollDecoder pollStr
-      in ( { model | poll = newPoll }, Cmd.none )
+      case (decodeString pollDecoder pollStr) of
+        Ok val -> 
+          ( { model | poll = val }, Cmd.none )
+        Err err ->
+          ( model, Cmd.none )
     NoOp -> ( model, Cmd.none )
 
 subscriptions : Model -> Sub Msg

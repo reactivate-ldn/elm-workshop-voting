@@ -6,7 +6,7 @@ import App.View exposing (view)
 import Html exposing (..)
 
 init : ( Model, Cmd Msg )
-init = ( initialModel, Cmd.none )
+init = initialModel
 
 main =
     Html.program
