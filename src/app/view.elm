@@ -86,7 +86,11 @@ view model =
           title "Loading..."
         Just val ->
           title val.title
-    , chart (450, 300)
+    , case model.poll of
+        Nothing ->
+          div[][]
+        Just val ->
+          chart (450, 300) val.answer
     ,
       case model.poll of
         Nothing ->

@@ -1,6 +1,6 @@
 module App.Chart.View exposing (chart)
 
-import App.Shared exposing (Msg)
+import App.Shared exposing (..)
 import Svg exposing (Svg, svg, g, rect)
 import Svg.Attributes exposing (height, width, viewBox, x, y, fill, fontSize, textAnchor, color)
 import Html.Attributes exposing (style)
@@ -60,12 +60,12 @@ calcBarsDimensions dimensions bars =
   in
     indexedMap (calcBarDimensions dimensions (barsLength, maxVotes)) bars
 
-chart : (Int, Int) -> Svg Msg
-chart dimensions =
+chart : (Int, Int) -> List Answer -> Svg Msg
+chart dimensions answers =
   let
     (xSize, ySize) = dimensions
     paddedDimensions = (xSize, ySize - 20)
-    barsDimensions = calcBarsDimensions paddedDimensions bars
+    barsDimensions = calcBarsDimensions paddedDimensions (List.map (\item -> (item.id, item.votes)) answers)
   in
     svg
       [ height (toString ySize)
