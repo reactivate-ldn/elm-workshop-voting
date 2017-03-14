@@ -65,7 +65,7 @@ voteButtonStyle =
 
 voteButton : Answer -> Html Msg
 voteButton answer =
-  a [ style voteButtonStyle, onClick (SendAnswer answer.answer) ]
+  a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
     [ text "+1" ]
 
 voteButtons : List Answer -> Html Msg

@@ -7,8 +7,8 @@ import Json.Decode.Pipeline exposing (decode, required)
 import Json.Encode exposing (encode, object)
 
 type alias Answer = {
-    answer: String
-  , id: String
+    id: String
+  , answer: String
   , votes: Int
 }
 

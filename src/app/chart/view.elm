@@ -57,7 +57,7 @@ chart dimensions answers =
   let
     (xSize, ySize) = dimensions
     paddedDimensions = (xSize, ySize - 20)
-    barsDimensions = calcBarsDimensions paddedDimensions (List.map (\item -> (item.id, item.votes)) answers)
+    barsDimensions = calcBarsDimensions paddedDimensions (List.map (\item -> (item.answer, item.votes)) answers)
   in
     svg
       [ height (toString ySize)
