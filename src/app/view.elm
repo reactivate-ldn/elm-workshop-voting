@@ -4,6 +4,7 @@ import App.Chart.View exposing (chart)
 import Html exposing (Html, div, h1, text, a)
 import Html.Attributes exposing (style)
 import App.Shared exposing (..)
+import Html.Events exposing (onClick)
 
 -- Container
 
@@ -18,10 +19,6 @@ containerStyle =
   , ("flex-direction", "column")
   , ("align-items", "stretch")
   ]
-
-container : List (Html Msg) -> Html Msg
-container children =
-  div [ style containerStyle ] children
 
 -- Title
 
@@ -68,7 +65,7 @@ voteButtonStyle =
 
 voteButton : Answer -> Html Msg
 voteButton answer =
-  a [ style voteButtonStyle ]
+  a [ style voteButtonStyle, onClick (SendAnswer answer.answer) ]
     [ text "+1" ]
 
 voteButtons : List Answer -> Html Msg
@@ -79,22 +76,20 @@ voteButtons answers =
 
 view : Model -> Html Msg
 view model =
-  container
-    [
-      case model.poll of
-        Nothing ->
-          title "Loading..."
-        Just val ->
-          title val.title
-    , case model.poll of
+  div [style containerStyle] [
+    case model.poll of
+      Nothing ->
+        title "Loading..."
+      Just val ->
+        title val.title
+  , case model.poll of
         Nothing ->
           div[][]
         Just val ->
           chart (450, 300) val.answer
-    ,
-      case model.poll of
+  , case model.poll of
         Nothing ->
           div[][]
         Just val ->
           voteButtons val.answer
-    ]
+  ]

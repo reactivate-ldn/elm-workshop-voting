@@ -35,14 +35,6 @@ bar (xSize, ySize) (label, xPos, yHeight) =
       ] [ Svg.text label ]
     ]
 
-bars : List (String, Int)
-bars =
-  [ ("React", 20)
-  , ("Preact", 7)
-  , ("Inferno", 5)
-  , ("Elm", 10)
-  ]
-
 calcBarDimensions : (Int, Int) -> (Int, Int) -> Int -> (String, Int) -> (String, Int, Float)
 calcBarDimensions (xSize, ySizeInt) (barsLength, maxVotes) index (name, votes) =
   let

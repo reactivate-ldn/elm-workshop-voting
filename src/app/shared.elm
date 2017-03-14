@@ -4,6 +4,7 @@ import WebSocket
 import Http
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (decode, required)
+import Json.Encode exposing (encode, object)
 
 type alias Answer = {
     answer: String
@@ -27,6 +28,8 @@ type Msg
   = NoOp
   | GetPoll String
   | GetHttpPoll (Result Http.Error Poll)
+  | SendAnswer String
+  | PostHttpAnswer (Result Http.Error Poll)
 
 answerDecoder : Decoder Answer
 answerDecoder = 
@@ -56,6 +59,13 @@ update msg model =
     GetHttpPoll (Err _) ->
       ( model, Cmd.none )
     NoOp -> ( model, Cmd.none )
+    SendAnswer answerId ->
+      (model, postAnswer answerId)
+    PostHttpAnswer (Ok val) ->
+      ( { model | poll = Just val }, Cmd.none )
+    PostHttpAnswer (Err _) ->
+      ( model, Cmd.none )
+
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -63,3 +73,12 @@ subscriptions model =
 
 getFirstPoll : Cmd Msg
 getFirstPoll = Http.send GetHttpPoll (Http.get "http://localhost:8080/poll?pollId=1234" pollDecoder)
+
+postAnswer : String -> Cmd Msg
+postAnswer answerId = 
+  let
+    url = "http://localhost:8080/poll/vote"
+    body =
+      Http.stringBody "application/json" (encode 0 (object [("pollId", Json.Encode.string "1234"), ("answerId", Json.Encode.string answerId)]))
+  in
+    Http.send PostHttpAnswer ((Http.post url body) pollDecoder)
