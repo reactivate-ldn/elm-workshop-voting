@@ -85,7 +85,12 @@ voteButtons =
 view : Model -> Html Msg
 view model =
   container
-    [ title "Loading..."
+    [ 
+      case model.poll of
+        Nothing ->
+          title "Loading..."
+        Just val ->
+          title val.title
     , chart (450, 300)
     , voteButtons
     ]

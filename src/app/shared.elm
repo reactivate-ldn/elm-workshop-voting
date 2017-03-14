@@ -17,10 +17,10 @@ type alias Poll = {
 }
 
 type alias Model = {
-  poll: Poll
+  poll: Maybe Poll
 }
 
-initialModel = ({ poll = { id = "foo", title = "bar", answer = [ { answer = "asd", id = "asd", votes = 1 }]} }, Cmd.none)
+initialModel = ({ poll = Nothing }, Cmd.none)
 
 type Msg
   = NoOp
@@ -46,7 +46,7 @@ update msg model =
     GetPoll pollStr ->
       case (decodeString pollDecoder pollStr) of
         Ok val -> 
-          ( { model | poll = val }, Cmd.none )
+          ( { model | poll = Just val }, Cmd.none )
         Err err ->
           ( model, Cmd.none )
     NoOp -> ( model, Cmd.none )
