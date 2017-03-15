@@ -10,6 +10,7 @@ import Html exposing (..)
 init : ( Model, Cmd Msg )
 init = ({ poll = Nothing }, getFirstPoll)
 
+main : Program Never Model Msg
 main =
     Html.program
     { view = view
