@@ -7,9 +7,6 @@ import App.Model exposing (..)
 import App.Decoder exposing (..)
 import Json.Decode exposing (decodeString)
 
-initialModel : ( Model, Cmd Msg )
-initialModel = ({ poll = Nothing }, getFirstPoll)
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
