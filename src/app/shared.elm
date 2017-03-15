@@ -20,7 +20,6 @@ update msg model =
       ( { model | poll = Just val }, Cmd.none )
     GetHttpPoll (Err _) ->
       ( model, Cmd.none )
-    NoOp -> ( model, Cmd.none )
     SendAnswer answerId ->
       (model, postAnswer answerId)
     PostHttpAnswer (Ok val) ->
