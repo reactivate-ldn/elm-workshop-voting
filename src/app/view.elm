@@ -73,23 +73,12 @@ voteButtons answers =
   div [ style voteButtonsStyle ] <| List.map voteButton answers
 
 -- Main View
-
 view : Model -> Html Msg
 view model =
-  div [style containerStyle] [
+  div [style containerStyle] <| (
     case model.poll of
       Nothing ->
-        title "Loading..."
+        [title "Loading...", div[][], div[][]]
       Just val ->
-        title val.title
-  , case model.poll of
-        Nothing ->
-          div[][]
-        Just val ->
-          chart (450, 300) val.answer
-  , case model.poll of
-        Nothing ->
-          div[][]
-        Just val ->
-          voteButtons val.answer
-  ]
+        [title val.title, chart (450, 300) val.answer, voteButtons val.answer]
+  )
