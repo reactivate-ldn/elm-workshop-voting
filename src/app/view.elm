@@ -1,86 +1,102 @@
-module App.View exposing(..)
+module App.View exposing (..)
 
 import Html exposing (Html, a, div, h1, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
-
 import App.Chart exposing (chart)
-import App.Message exposing(Msg(SendAnswer))
-import App.Model exposing(Answer, Model)
+import App.Message exposing (Msg(SendAnswer))
+import App.Model exposing (Answer, Model)
+
 
 -- Container
 
-containerStyle : List (String, String)
+
+containerStyle : List ( String, String )
 containerStyle =
-  [ ("margin", "0 auto")
-  , ("max-width", "100%")
-  , ("width", "1000px")
-  , ("height", "100%")
-  , ("padding", "3rem 1rem 2rem")
-  , ("display", "flex")
-  , ("flex-direction", "column")
-  , ("align-items", "stretch")
-  ]
+    [ ( "margin", "0 auto" )
+    , ( "max-width", "100%" )
+    , ( "width", "1000px" )
+    , ( "height", "100%" )
+    , ( "padding", "3rem 1rem 2rem" )
+    , ( "display", "flex" )
+    , ( "flex-direction", "column" )
+    , ( "align-items", "stretch" )
+    ]
+
+
 
 -- Title
 
-titleStyle : List (String, String)
+
+titleStyle : List ( String, String )
 titleStyle =
-  [ ("font-size", "3.7rem")
-  , ("font-weight", "bold")
-  , ("text-align", "center")
-  , ("margin", "0")
-  , ("margin-bottom", "2rem")
-  ]
+    [ ( "font-size", "3.7rem" )
+    , ( "font-weight", "bold" )
+    , ( "text-align", "center" )
+    , ( "margin", "0" )
+    , ( "margin-bottom", "2rem" )
+    ]
+
 
 title : String -> Html Msg
 title label =
-  h1 [ style titleStyle ]
-    [ text label ]
+    h1 [ style titleStyle ]
+        [ text label ]
+
+
 
 -- Voting Buttons
 
-voteButtonsStyle : List (String, String)
-voteButtonsStyle =
-  [ ("display", "flex")
-  , ("flex-direction", "row")
-  , ("justify-content", "space-around")
-  , ("align-items", "center")
-  , ("margin-top", "5rem")
-  ]
 
-voteButtonStyle : List (String, String)
+voteButtonsStyle : List ( String, String )
+voteButtonsStyle =
+    [ ( "display", "flex" )
+    , ( "flex-direction", "row" )
+    , ( "justify-content", "space-around" )
+    , ( "align-items", "center" )
+    , ( "margin-top", "5rem" )
+    ]
+
+
+voteButtonStyle : List ( String, String )
 voteButtonStyle =
-  [ ("display", "block")
-  , ("cursor", "pointer")
-  , ("border-radius", "50%")
-  , ("width", "3rem")
-  , ("height", "3rem")
-  , ("background", "#FFBD24")
-  , ("box-shadow", "0 0 0 0.6rem rgba(255, 189, 36, 0.3)")
-  , ("font-size", "1.5rem")
-  , ("text-align", "center")
-  , ("line-height", "3rem")
-  , ("vertical-align", "middle")
-  , ("user-select", "none")
-  ]
+    [ ( "display", "block" )
+    , ( "cursor", "pointer" )
+    , ( "border-radius", "50%" )
+    , ( "width", "3rem" )
+    , ( "height", "3rem" )
+    , ( "background", "#FFBD24" )
+    , ( "box-shadow", "0 0 0 0.6rem rgba(255, 189, 36, 0.3)" )
+    , ( "font-size", "1.5rem" )
+    , ( "text-align", "center" )
+    , ( "line-height", "3rem" )
+    , ( "vertical-align", "middle" )
+    , ( "user-select", "none" )
+    ]
+
 
 voteButton : Answer -> Html Msg
 voteButton answer =
-  a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
-    [ text "+1" ]
+    a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
+        [ text "+1" ]
+
 
 voteButtons : List Answer -> Html Msg
 voteButtons answers =
-  div [ style voteButtonsStyle ] <| List.map voteButton answers
+    div [ style voteButtonsStyle ] <| List.map voteButton answers
+
+
 
 -- Main View
+
+
 view : Model -> Html Msg
 view model =
-  div [style containerStyle] <| (
-    case model.poll of
-      Nothing ->
-        [title "Loading...", div[][], div[][]]
-      Just val ->
-        [title val.title, chart (450, 300) val.answer, voteButtons val.answer]
-  )
+    div [ style containerStyle ] <|
+        (case model.poll of
+            Nothing ->
+                [ title "Loading...", div [] [], div [] [] ]
+
+            Just val ->
+                [ title val.title, chart ( 450, 300 ) val.answer, voteButtons val.answer ]
+        )
