@@ -6,16 +6,26 @@ import App.Decoder exposing (answerDecoder, pollDecoder)
 import App.Message exposing (Msg(GetHttpPoll, PostHttpAnswer))
 
 
+pollServer : String
+pollServer =
+    "api.alexrieux.fr"
+
+
+pollId : String
+pollId =
+    "1234"
+
+
 getFirstPoll : Cmd Msg
 getFirstPoll =
-    Http.send GetHttpPoll <| Http.get "http://api.alexrieux.fr/poll?pollId=1234" pollDecoder
+    Http.send GetHttpPoll <| Http.get ("http://" ++ pollServer ++ "/poll?pollId=" ++ pollId) pollDecoder
 
 
 postAnswer : String -> Cmd Msg
 postAnswer answerId =
     let
         url =
-            "http://api.alexrieux.fr/poll/vote"
+            "http://" ++ pollServer ++ "/poll/vote"
 
         args =
             (Json.Encode.object [ ( "pollId", Json.Encode.string "1234" ), ( "answerId", Json.Encode.string answerId ) ])

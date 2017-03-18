@@ -8,6 +8,11 @@ import App.Model exposing (Model)
 import App.Request exposing (postAnswer)
 
 
+pollServer : String
+pollServer =
+    "api.alexrieux.fr"
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -37,4 +42,4 @@ update msg model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    WebSocket.listen "ws://api.alexrieux.fr//socket" GetPoll
+    WebSocket.listen ("ws://" ++ pollServer ++ "//socket") GetPoll
