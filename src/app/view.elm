@@ -1,11 +1,13 @@
-module App.View exposing (..)
+module App.View exposing(..)
 
-import App.Chart.View exposing (chart)
-import Html exposing (Html, div, h1, text, a)
+import Html exposing (Html, a, div, h1, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
-import App.Model exposing (..)
-import App.Message exposing (..)
+
+import App.Chart exposing (chart)
+import App.Message exposing(Msg(SendAnswer))
+import App.Model exposing(Answer, Model)
+
 -- Container
 
 containerStyle : List (String, String)

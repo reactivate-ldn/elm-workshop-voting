@@ -1,6 +1,7 @@
-module App.Message exposing (..)
+module App.Message exposing (Msg(GetPoll, GetHttpPoll, SendAnswer, PostHttpAnswer))
 
 import Http
+
 import App.Model exposing (Poll)
 
 type Msg

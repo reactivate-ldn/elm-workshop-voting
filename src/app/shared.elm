@@ -1,18 +1,19 @@
-module App.Shared exposing (..)
+module App.Shared exposing (update, subscriptions)
 
+import Json.Decode exposing (Decoder, decodeString)
 import WebSocket
-import App.Request exposing (getFirstPoll, postAnswer)
-import App.Message exposing (..)
-import App.Model exposing (..)
-import App.Decoder exposing (..)
-import Json.Decode exposing (decodeString)
+
+import App.Decoder exposing (answerDecoder, pollDecoder)
+import App.Message exposing (Msg(GetPoll, GetHttpPoll, PostHttpAnswer, SendAnswer))
+import App.Model exposing (Model)
+import App.Request exposing (postAnswer)
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
     GetPoll pollStr ->
       case (decodeString pollDecoder pollStr) of
-        Ok val -> 
+        Ok val ->
           ( { model | poll = Just val }, Cmd.none )
         Err err ->
           ( model, Cmd.none )
@@ -27,7 +28,6 @@ update msg model =
     PostHttpAnswer (Err _) ->
       ( model, Cmd.none )
 
-
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    WebSocket.listen "ws://localhost:8080/socket" GetPoll
+    WebSocket.listen "ws://api.alexrieux.fr//socket" GetPoll

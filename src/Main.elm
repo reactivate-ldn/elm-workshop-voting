@@ -1,11 +1,12 @@
 module Main exposing (main)
 
-import App.Shared exposing (update, subscriptions)
-import App.Model exposing (Model)
-import App.View exposing (view)
+import Html
+
+import App.Message exposing(Msg)
+import App.Model exposing(Answer, Model, Poll)
 import App.Request exposing (getFirstPoll)
-import App.Message exposing (Msg)
-import Html exposing (..)
+import App.Shared exposing(update, subscriptions)
+import App.View exposing(view)
 
 init : ( Model, Cmd Msg )
 init = ({ poll = Nothing }, getFirstPoll)

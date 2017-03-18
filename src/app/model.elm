@@ -1,4 +1,4 @@
-module App.Model exposing (..)
+module App.Model exposing (Answer, Model, Poll)
 
 type alias Answer = {
     id: String

@@ -1,12 +1,12 @@
-module App.Chart.View exposing (chart)
+module App.Chart exposing (chart)
 
+import Html.Attributes exposing (style)
 import Svg exposing (Svg, svg, g, rect)
 import Svg.Attributes exposing (height, width, viewBox, x, y, fill, fontSize, textAnchor, color)
-import Html.Attributes exposing (style)
 import List exposing (map, indexedMap, length, maximum)
-import Maybe exposing (withDefault)
-import App.Model exposing (..)
-import App.Message exposing (..)
+
+import App.Message exposing(Msg)
+import App.Model exposing(Answer)
 
 barWidth : Int
 barWidth = 8
@@ -49,7 +49,7 @@ calcBarsDimensions : (Int, Int) -> List (String, Int) -> List (String, Int, Floa
 calcBarsDimensions dimensions bars =
   let
     barsLength = length bars
-    maxVotes = withDefault 0 (maximum (map (\(_, votes) -> votes) bars))
+    maxVotes = Maybe.withDefault 0 (maximum (List.map (\(_, votes) -> votes) bars))
   in
     indexedMap (calcBarDimensions dimensions (barsLength, maxVotes)) bars
 
@@ -67,5 +67,5 @@ chart dimensions answers =
       , style chartStyle
       ]
       [ g []
-        (map (\x -> bar dimensions x) barsDimensions)
+        (List.map (\x -> bar dimensions x) barsDimensions)
       ]
