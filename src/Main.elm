@@ -4,7 +4,8 @@ import Html
 import App.Message exposing (Msg)
 import App.Model exposing (Answer, Model, Poll)
 import App.Request exposing (getFirstPoll)
-import App.Shared exposing (update, subscriptions)
+import App.Update exposing (update)
+import App.Subscriptions exposing (subscriptions)
 import App.View exposing (view)
 
 

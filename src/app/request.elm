@@ -28,7 +28,7 @@ postAnswer answerId =
             "http://" ++ pollServer ++ "/poll/vote"
 
         args =
-            (Json.Encode.object [ ( "pollId", Json.Encode.string "1234" ), ( "answerId", Json.Encode.string answerId ) ])
+            (object [ ( "pollId", string "1234" ), ( "answerId", string answerId ) ])
 
         body =
             Http.stringBody "application/json" (encode 0 args)

@@ -1,17 +1,10 @@
-module App.Shared exposing (update, subscriptions)
+module App.Update exposing (update)
 
 import Json.Decode exposing (Decoder, decodeString)
-import WebSocket
 import App.Decoder exposing (answerDecoder, pollDecoder)
 import App.Message exposing (Msg(GetPoll, GetHttpPoll, PostHttpAnswer, SendAnswer))
 import App.Model exposing (Model)
 import App.Request exposing (postAnswer)
-
-
-pollServer : String
-pollServer =
-    "api.alexrieux.fr"
-
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -39,7 +32,3 @@ update msg model =
         PostHttpAnswer (Err _) ->
             ( model, Cmd.none )
 
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    WebSocket.listen ("ws://" ++ pollServer ++ "//socket") GetPoll
