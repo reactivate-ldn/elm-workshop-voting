@@ -1,10 +1,10 @@
 module App.Update exposing (update)
 
 import Json.Decode exposing (Decoder, decodeString)
-import App.Decoder exposing (answerDecoder, pollDecoder)
 import App.Message exposing (Msg(GetPoll, GetHttpPoll, PostHttpAnswer, SendAnswer))
 import App.Model exposing (Model)
-import App.Request exposing (postAnswer)
+import App.Poll exposing (answerDecoder, pollDecoder, postAnswer)
+
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -31,4 +31,3 @@ update msg model =
 
         PostHttpAnswer (Err _) ->
             ( model, Cmd.none )
-
