@@ -23,10 +23,10 @@ pollId =
 
 
 -- Decoders
-
-
 -- TODO: add answerDecoder : Decoder Answer
 -- Answer should be defined in App.Mode
+
+
 pollDecoder : Decoder Poll
 pollDecoder =
     let
@@ -36,10 +36,11 @@ pollDecoder =
         decode Poll
             |> required "id" string
             |> required "title" string
-            -- TODO: Add "answer" in Poll's model and decode it here using the answerDecoder defined before.
-            -- Hint: "answer: will be a list of Answer(s).
 
 
+
+-- TODO: Add "answer" in Poll's model and decode it here using the answerDecoder defined before.
+-- Hint: "answer: will be a list of Answer(s).
 -- Requests
 
 

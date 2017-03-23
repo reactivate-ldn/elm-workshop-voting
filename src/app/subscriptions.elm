@@ -10,6 +10,12 @@ pollServer =
 
 
 subscriptions : Model -> Sub Msg
+
+
+
 -- TODO: Replace Sub.none with a WebSocket subscription to "ws://" ++ pollServer ++ "/socket"
 -- and pass in GetPoll.
-subscriptions model = Sub.none
+
+
+subscriptions model =
+    Sub.none

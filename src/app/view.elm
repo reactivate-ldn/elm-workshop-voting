@@ -77,17 +77,20 @@ voteButtonStyle =
     ]
 
 
+
 -- TODO: define onClick behaviour for voteButton
 --voteButton : Answer -> Html Msg
+
+
 voteButton answer =
     a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
         [ text "+1" ]
 
 
+
 -- TODO: add voteButtons : List Answer -> Html Msg
 -- div [] []
--- Hint: voteButtonsStyle is already defined. The childnode should be a map of voteButton over answers 
-
+-- Hint: voteButtonsStyle is already defined. The childnode should be a map of voteButton over answers
 -- Chart
 
 
@@ -151,7 +154,11 @@ calcBarsDimensions dimensions bars =
     in
         indexedMap (calcBarDimensions dimensions ( barsLength, maxVotes )) bars
 
+
+
 -- TODO: Change chart to accept as a second parameter a List of Answer
+
+
 chart : ( Int, Int ) -> Svg Msg
 chart dimensions =
     let
@@ -161,13 +168,12 @@ chart dimensions =
         paddedDimensions =
             ( xSize, ySize - 20 )
 
-        answers = [
-            {
-                id = ""
-                , answer = "test"
-                , votes = 1
-            }
-        ]
+        answers =
+            [ { id = ""
+              , answer = "test"
+              , votes = 1
+              }
+            ]
 
         barsDimensions =
             calcBarsDimensions paddedDimensions (List.map (\item -> ( item.answer, item.votes )) answers)
@@ -195,6 +201,6 @@ view model =
                 [ title "Loading...", div [] [], div [] [] ]
 
             Just val ->
-            -- TODO: Pass to chart the answers and render the vote buttons
+                -- TODO: Pass to chart the answers and render the vote buttons
                 [ title val.title, chart ( 450, 300 ), div [] [] ]
         )

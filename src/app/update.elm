@@ -18,7 +18,7 @@ update msg model =
                     ( model, Cmd.none )
 
         GetHttpPoll (Ok val) ->
-        -- TODO: Complete update of the model here
+            -- TODO: Complete update of the model here
             ( model, Cmd.none )
 
         GetHttpPoll (Err _) ->
