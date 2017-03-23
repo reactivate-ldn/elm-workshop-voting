@@ -1,7 +1,7 @@
 module App.View exposing (view)
 
 import App.Message exposing (Msg(SendAnswer))
-import App.Model exposing (Answer, Model)
+import App.Model exposing (Model)
 import Html exposing (Html, a, div, h1, text)
 import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
@@ -77,17 +77,16 @@ voteButtonStyle =
     ]
 
 
-voteButton : Answer -> Html Msg
+-- TODO: define onClick behaviour for voteButton
+--voteButton : Answer -> Html Msg
 voteButton answer =
     a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
         [ text "+1" ]
 
 
-voteButtons : List Answer -> Html Msg
-voteButtons answers =
-    div [ style voteButtonsStyle ] <| List.map voteButton answers
-
-
+-- TODO: add voteButtons : List Answer -> Html Msg
+-- div [] []
+-- Hint: voteButtonsStyle is already defined. The childnode should be a map of voteButton over answers 
 
 -- Chart
 
@@ -152,15 +151,23 @@ calcBarsDimensions dimensions bars =
     in
         indexedMap (calcBarDimensions dimensions ( barsLength, maxVotes )) bars
 
-
-chart : ( Int, Int ) -> List Answer -> Svg Msg
-chart dimensions answers =
+-- TODO: Change chart to accept as a second parameter a List of Answer
+chart : ( Int, Int ) -> Svg Msg
+chart dimensions =
     let
         ( xSize, ySize ) =
             dimensions
 
         paddedDimensions =
             ( xSize, ySize - 20 )
+
+        answers = [
+            {
+                id = ""
+                , answer = "test"
+                , votes = 1
+            }
+        ]
 
         barsDimensions =
             calcBarsDimensions paddedDimensions (List.map (\item -> ( item.answer, item.votes )) answers)
@@ -188,5 +195,6 @@ view model =
                 [ title "Loading...", div [] [], div [] [] ]
 
             Just val ->
-                [ title val.title, chart ( 450, 300 ) val.answer, voteButtons val.answer ]
+            -- TODO: Pass to chart the answers and render the vote buttons
+                [ title val.title, chart ( 450, 300 ), div [] [] ]
         )

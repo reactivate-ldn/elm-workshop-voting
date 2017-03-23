@@ -3,7 +3,7 @@ module App.Update exposing (update)
 import Json.Decode exposing (Decoder, decodeString)
 import App.Message exposing (Msg(GetPoll, GetHttpPoll, PostHttpAnswer, SendAnswer))
 import App.Model exposing (Model)
-import App.Poll exposing (answerDecoder, pollDecoder, postAnswer)
+import App.Poll exposing (pollDecoder, postAnswer)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -18,7 +18,8 @@ update msg model =
                     ( model, Cmd.none )
 
         GetHttpPoll (Ok val) ->
-            ( { model | poll = Just val }, Cmd.none )
+        -- TODO: Complete update of the model here
+            ( model, Cmd.none )
 
         GetHttpPoll (Err _) ->
             ( model, Cmd.none )

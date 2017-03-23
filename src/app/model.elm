@@ -1,17 +1,12 @@
-module App.Model exposing (Answer, Model, Poll)
+module App.Model exposing (Model, Poll)
 
 
-type alias Answer =
-    { id : String
-    , answer : String
-    , votes : Int
-    }
-
+-- TODO: define type alias for Answer here with id and answer as strings and votes as a number.
 
 type alias Poll =
     { id : String
     , title : String
-    , answer : List Answer
+    -- TODO: add answer here as a list of Answer
     }
 
 

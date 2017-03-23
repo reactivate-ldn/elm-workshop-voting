@@ -1,6 +1,5 @@
 module App.Subscriptions exposing (subscriptions)
 
-import WebSocket
 import App.Model exposing (Model)
 import App.Message exposing (Msg(GetPoll))
 
@@ -11,5 +10,6 @@ pollServer =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
-    WebSocket.listen ("ws://" ++ pollServer ++ "/socket") GetPoll
+-- TODO: Replace Sub.none with a WebSocket subscription to "ws://" ++ pollServer ++ "/socket"
+-- and pass in GetPoll.
+subscriptions model = Sub.none
