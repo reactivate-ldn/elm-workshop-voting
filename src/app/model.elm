@@ -1,6 +1,7 @@
 module App.Model exposing (Model, Poll)
 
--- TODO: define type alias for Answer here with id and answer as strings and votes as a number.
+-- TODO: define type alias for Answer.
+-- Hint: check docs on http://api.alexrieux.fr/ to figure out the shape of it.
 
 
 type alias Poll =
