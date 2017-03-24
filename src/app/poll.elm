@@ -1,9 +1,9 @@
-module App.Poll exposing (answerDecoder, getFirstPoll, pollDecoder, postAnswer)
+module App.Poll exposing (getFirstPoll, pollDecoder, postAnswer)
 
 import App.Message exposing (Msg(GetHttpPoll, PostHttpAnswer))
-import App.Model exposing (Answer, Poll)
+import App.Model exposing (Poll)
 import Http
-import Json.Decode exposing (Decoder, decodeString, int, list, string)
+import Json.Decode exposing (Decoder, decodeString, int, string)
 import Json.Decode.Pipeline exposing (decode, required)
 import Json.Encode exposing (encode, object, string)
 
@@ -23,18 +23,8 @@ pollId =
 
 
 -- Decoders
-
-
-answerDecoder : Decoder Answer
-answerDecoder =
-    let
-        string =
-            Json.Decode.string
-    in
-        decode Answer
-            |> required "id" string
-            |> required "answer" string
-            |> required "votes" int
+-- TODO: add answerDecoder : Decoder Answer
+-- Answer should be defined in App.Mode
 
 
 pollDecoder : Decoder Poll
@@ -46,10 +36,11 @@ pollDecoder =
         decode Poll
             |> required "id" string
             |> required "title" string
-            |> required "answer" (list answerDecoder)
 
 
 
+-- TODO: Add "answer" in Poll's model and decode it here using the answerDecoder defined before.
+-- Hint: "answer: will be a list of Answer(s).
 -- Requests
 
 

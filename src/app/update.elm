@@ -1,24 +1,20 @@
 module App.Update exposing (update)
 
-import Json.Decode exposing (Decoder, decodeString)
 import App.Message exposing (Msg(GetPoll, GetHttpPoll, PostHttpAnswer, SendAnswer))
 import App.Model exposing (Model)
-import App.Poll exposing (answerDecoder, pollDecoder, postAnswer)
+import App.Poll exposing (pollDecoder, postAnswer)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetPoll pollStr ->
-            case (decodeString pollDecoder pollStr) of
-                Ok val ->
-                    ( { model | poll = Just val }, Cmd.none )
-
-                Err err ->
-                    ( model, Cmd.none )
+            -- TODO: Decode pollStr and set the state accordingly
+            ( model, Cmd.none )
 
         GetHttpPoll (Ok val) ->
-            ( { model | poll = Just val }, Cmd.none )
+            -- TODO: Complete update of the model here
+            ( model, Cmd.none )
 
         GetHttpPoll (Err _) ->
             ( model, Cmd.none )
