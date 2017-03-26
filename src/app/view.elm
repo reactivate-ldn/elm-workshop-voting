@@ -79,11 +79,11 @@ voteButtonStyle =
 
 
 -- TODO: define onClick behaviour for voteButton
---voteButton : Answer -> Html Msg
+-- voteButton : Answer -> Html Msg
 
 
 voteButton answer =
-    a [ style voteButtonStyle, onClick (SendAnswer answer.id) ]
+    a [ style voteButtonStyle ]
         [ text "+1" ]
 
 
