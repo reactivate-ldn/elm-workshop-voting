@@ -24,7 +24,7 @@ pollId =
 
 -- Decoders
 -- TODO: add answerDecoder : Decoder Answer
--- Answer should be defined in App.Mode
+-- Answer should be defined in App.Model
 
 
 pollDecoder : Decoder Poll
