@@ -16,3 +16,8 @@ src/app
 ## API
 
 - [Polls API](http://api.alexrieux.fr)
+
+## Development instructions
+1. `npm i`
+2. `npm start`
+3. If browser does not automatically launch, go to `http://localhost:3000`
